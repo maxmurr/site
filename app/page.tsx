@@ -1,65 +1,197 @@
+import { Icons } from "@/components/icons";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Badge } from "@/components/ui/badge";
+import { Skeleton } from "@/components/ui/skeleton";
+import { EXPERIENCE_CONFIG } from "@/lib/config";
+import { cn } from "@/lib/utils";
+import { ArrowUpRightIcon } from "lucide-react";
+import { cacheLife } from "next/cache";
 import Image from "next/image";
+import Link from "next/link";
+import { Suspense } from "react";
 
-export default function Home() {
+const ImageList = [
+  {
+    src: "/images/pf.png",
+    alt: "Blog - Property Perfect",
+  },
+  {
+    src: "/images/swipe-policies.png",
+    alt: "Swipe Policies",
+  },
+  {
+    src: "/images/mookrata.png",
+    alt: "Mookrata",
+  },
+  {
+    src: "/images/election.png",
+    alt: "Election",
+  },
+  {
+    src: "/images/hotelpms.png",
+    alt: "Hotel Management System",
+  },
+  {
+    src: "/images/slip-verify.png",
+    alt: "Slip Verify",
+  },
+];
+
+export default async function Home() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+    <main className="py-16 relative mx-auto flex max-w-2xl flex-col">
+      <div className="mb-8 typography">
+        <h1 className="text-2xl font-bold tracking-tight">
+          hey, I&apos;m Max Murray 👋
+        </h1>
+        <Badge variant="secondary" className="mt-2">
+          Hear my story
+        </Badge>
+      </div>
+      <div className="typography">
+        <p className="mb-5 leading-6">
+          I&apos;m a Software Engineer from Bangkok, Thailand with strong
+          fundamentals in React, TypeScript, and modern web architecture.
+          I&apos;m passionate about building performant, maintainable software
+          that enhances user experience and solves real problems. Currently
+          working as a Mid-level Software Engineer at Innovative Extremist,
+          where I&apos;ve progressed from intern to my current role over the
+          past two years.
+        </p>
+        <p className="leading-6">
+          I love exploring new technologies and shipping solutions that make a
+          difference. Reach out via{" "}
+          <Link
+            href="mailto:maxmurr.m@gmail.com"
+            className="font-medium text-primary underline decoration-border decoration-2 underline-offset-2 transition-all"
+          >
+            email
+          </Link>{" "}
+          for collaboration or check out my work on{" "}
+          <Link
+            href="https://github.com/maxmurr"
+            className="font-medium text-primary underline decoration-border decoration-2 underline-offset-2 transition-all"
+          >
+            github
+          </Link>
+          .
+        </p>
+      </div>
+      <a
+        href="https://www.github.com/maxmurr"
+        className="my-8"
+        target="_blank"
+        rel="noreferrer"
+      >
+        <Suspense fallback={<GithubInfoFallback />}>
+          <GithubInfo />
+        </Suspense>
+      </a>
+      <div className="typography">
+        <p className="leading-6">
+          Over the past two years, I&apos;ve worked on and contributed to
+          numerous{" "}
+          <Link
+            href="/projects"
+            className="font-medium text-primary underline decoration-border decoration-2 underline-offset-2 transition-all"
+          >
+            projects
+          </Link>
+          , from interactive election platforms to video player libraries and
+          real estate solutions. Here are some highlights from my professional
+          work and personal projects.
+        </p>
+      </div>
+      <div className="my-8 columns-2 gap-4 sm:columns-3">
+        {ImageList.map((img, idx) => (
+          <div
+            key={img.src}
+            className={cn({
+              "relative mb-4 h-40 rounded-lg shadow-sm": idx === 0 || idx === 4,
+              "relative mb-4 h-80 rounded-lg shadow-sm sm:mb-0": idx === 1,
+              "relative h-40 rounded-lg shadow-sm sm:mb-4 sm:h-80": idx === 2,
+              "relative mb-4 h-40 rounded-lg shadow-sm sm:mb-0": idx === 3,
+              "relative h-80 rounded-lg shadow-sm": idx === 5,
+            })}
           >
             <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
+              src={img.src}
+              alt={img.alt}
+              fill
+              priority
+              sizes="(max-width: 768px) 213px, 33vw"
+              className="rounded-lg object-cover"
+              loading="eager"
             />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
+          </div>
+        ))}
+      </div>
+
+      <p className="my-5 leading-6 text-muted-foreground">Experience with:</p>
+      <div className="mb-5 flex flex-wrap gap-2">
+        {EXPERIENCE_CONFIG.map((exp) => {
+          const Icon = exp.icon ? Icons[exp.icon as keyof typeof Icons] : null;
+
+          return (
+            <a
+              key={exp.name}
+              href={exp.href}
+              aria-label={`Link to ${exp.name}`}
+              target="_blank"
+              rel="noreferrer"
+            >
+              <div className="size-full rounded-lg border border-border bg-primary-foreground px-3 py-4">
+                {Icon && <Icon className="text-black dark:text-white" />}
+              </div>
+            </a>
+          );
+        })}
+      </div>
+    </main>
+  );
+}
+
+async function getGithubData() {
+  "use cache";
+  cacheLife("days");
+  const response = await fetch("https://api.github.com/users/maxmurr");
+  const data = await response.json();
+  return data;
+}
+
+async function GithubInfo() {
+  const data = await getGithubData();
+
+  return (
+    <div className="group flex w-full items-center gap-4 rounded border border-border bg-primary-foreground px-3 py-4 outline-none duration-200">
+      <Avatar className="size-16">
+        <AvatarImage src="https://github.com/maxmurr.png" alt="Github PFP" />
+        <AvatarFallback>M</AvatarFallback>
+      </Avatar>
+      <div className="grow">
+        <p className="font-semibold">@maxmurr</p>
+        <p className="text-muted-foreground">
+          {data.public_repos} repositories
+        </p>
+      </div>
+      <div className="transition-transform duration-300 group-hover:-rotate-12">
+        <ArrowUpRightIcon />
+      </div>
+    </div>
+  );
+}
+
+function GithubInfoFallback() {
+  return (
+    <div className="group flex w-full items-center gap-4 rounded border border-border bg-primary-foreground px-3 py-4 outline-none duration-200">
+      <Skeleton className="size-16 rounded-full" />
+      <div className="grow flex flex-col gap-2">
+        <Skeleton className="w-20 h-4" />
+        <Skeleton className="w-28 h-4" />
+      </div>
+      <div className="transition-transform duration-300 group-hover:-rotate-12">
+        <ArrowUpRightIcon />
+      </div>
     </div>
   );
 }
