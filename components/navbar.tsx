@@ -20,7 +20,7 @@ export const Navbar = () => {
                   key={item.id}
                   href={item.href}
                   className={cn(
-                    "flex h-8 items-center rounded-md px-4 text-sm transition-colors hover:text-foreground",
+                    "flex min-h-11 items-center rounded-md px-4 text-sm transition-colors hover:text-foreground",
                     isActive
                       ? "font-medium text-foreground"
                       : "text-muted-foreground"

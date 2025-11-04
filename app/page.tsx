@@ -63,14 +63,14 @@ export default async function Home() {
           difference. Reach out via{" "}
           <Link
             href="mailto:maxmurr.m@gmail.com"
-            className="font-medium text-primary underline decoration-border decoration-2 underline-offset-2 transition-all"
+            className="font-medium text-primary underline decoration-border decoration-2 underline-offset-2 transition-colors hover:text-foreground"
           >
             email
           </Link>{" "}
           for collaboration or check out my work on{" "}
           <Link
             href="https://github.com/maxmurr"
-            className="font-medium text-primary underline decoration-border decoration-2 underline-offset-2 transition-all"
+            className="font-medium text-primary underline decoration-border decoration-2 underline-offset-2 transition-colors hover:text-foreground"
           >
             github
           </Link>
@@ -93,7 +93,7 @@ export default async function Home() {
           numerous{" "}
           <Link
             href="/projects"
-            className="font-medium text-primary underline decoration-border decoration-2 underline-offset-2 transition-all"
+            className="font-medium text-primary underline decoration-border decoration-2 underline-offset-2 transition-colors hover:text-foreground"
           >
             projects
           </Link>
@@ -118,10 +118,9 @@ export default async function Home() {
               src={img.src}
               alt={img.alt}
               fill
-              priority
+              priority={idx === 0 || idx === 2 || idx === 4}
               sizes="(max-width: 768px) 213px, 33vw"
               className="rounded-lg object-cover"
-              loading="eager"
             />
           </div>
         ))}
@@ -139,6 +138,7 @@ export default async function Home() {
               aria-label={`Link to ${exp.name}`}
               target="_blank"
               rel="noreferrer"
+              className="min-h-11 min-w-11 flex items-center justify-center"
             >
               <div className="size-full rounded-lg border border-border bg-primary-foreground px-3 py-4">
                 {Icon && <Icon className="text-black dark:text-white" />}
@@ -163,7 +163,7 @@ async function GithubInfo() {
   const data = await getGithubData();
 
   return (
-    <div className="group flex w-full items-center gap-4 rounded border border-border bg-primary-foreground px-3 py-4 outline-none duration-200">
+    <div className="group flex w-full items-center gap-4 rounded border border-border bg-primary-foreground px-3 py-4 outline-none duration-200 transition-opacity animate-in fade-in">
       <Avatar className="size-16">
         <AvatarImage src="https://github.com/maxmurr.png" alt="Github PFP" />
         <AvatarFallback>M</AvatarFallback>

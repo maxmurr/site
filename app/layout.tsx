@@ -33,6 +33,9 @@ export const metadata: Metadata = {
     description: "Max Murray's personal website",
     images: ["https://maxmurr.com/og-image.png"],
   },
+  other: {
+    "theme-color": "#252525",
+  },
 };
 
 export default function RootLayout({
@@ -41,7 +44,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark">
+    <html lang="en" className="dark" style={{ colorScheme: "dark" }}>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
