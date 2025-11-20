@@ -14,10 +14,12 @@ const ImageList = [
   {
     src: "/images/pf.png",
     alt: "Blog - Property Perfect",
+    href: "https://www.pf.co.th/th/home",
   },
   {
     src: "/images/swipe-policies.png",
     alt: "Swipe Policies",
+    href: "https://election66.thaipbs.or.th/swipe-policies/",
   },
   {
     src: "/images/mookrata.png",
@@ -26,14 +28,16 @@ const ImageList = [
   {
     src: "/images/election.png",
     alt: "Election",
+    href: "https://election66.thaipbs.or.th/result/formation/formula?id=18",
   },
   {
     src: "/images/hotelpms.png",
     alt: "Hotel Management System",
   },
   {
-    src: "/images/slip-verify.png",
-    alt: "Slip Verify",
+    src: "/images/election68.png",
+    alt: "Election 68",
+    href: "https://www.thaipbs.or.th/LocalElection/result",
   },
 ];
 
@@ -50,13 +54,11 @@ export default async function Home() {
       </div>
       <div className="typography">
         <p className="mb-5 leading-6">
-          I&apos;m a Software Engineer from Bangkok, Thailand with strong
-          fundamentals in React, TypeScript, and modern web architecture.
-          I&apos;m passionate about building performant, maintainable software
-          that enhances user experience and solves real problems. Currently
-          working as a Mid-level Software Engineer at Innovative Extremist,
-          where I&apos;ve progressed from intern to my current role over the
-          past two years.
+          I am a Software Engineer with strong fundamentals in React,
+          TypeScript, and modern web architecture, building performant,
+          maintainable software at Innovative Extremist. I practice TDD,
+          maintain high quality standards with a zero-bug mindset, explore new
+          technologies, and ship solutions that solve real problems.
         </p>
         <p className="leading-6">
           I love exploring new technologies and shipping solutions that make a
@@ -103,27 +105,44 @@ export default async function Home() {
         </p>
       </div>
       <div className="my-8 columns-2 gap-4 sm:columns-3">
-        {ImageList.map((img, idx) => (
-          <div
-            key={img.src}
-            className={cn({
-              "relative mb-4 h-40 rounded-lg shadow-sm": idx === 0 || idx === 4,
-              "relative mb-4 h-80 rounded-lg shadow-sm sm:mb-0": idx === 1,
-              "relative h-40 rounded-lg shadow-sm sm:mb-4 sm:h-80": idx === 2,
-              "relative mb-4 h-40 rounded-lg shadow-sm sm:mb-0": idx === 3,
-              "relative h-80 rounded-lg shadow-sm": idx === 5,
-            })}
-          >
-            <Image
-              src={img.src}
-              alt={img.alt}
-              fill
-              priority={idx === 0 || idx === 2 || idx === 4}
-              sizes="(max-width: 768px) 213px, 33vw"
-              className="rounded-lg object-cover"
-            />
-          </div>
-        ))}
+        {ImageList.map((img, idx) => {
+          const baseClasses = cn({
+            "relative mb-4 h-40 rounded-lg shadow-sm": idx === 0 || idx === 4,
+            "relative mb-4 h-80 rounded-lg shadow-sm sm:mb-0": idx === 1,
+            "relative h-40 rounded-lg shadow-sm sm:mb-4 sm:h-80": idx === 2,
+            "relative mb-4 h-40 rounded-lg shadow-sm sm:mb-0": idx === 3,
+            "relative h-80 rounded-lg shadow-sm": idx === 5,
+          });
+
+          const imageContainer = (
+            <div className={cn(baseClasses, img.href && "transition-transform duration-200 hover:scale-105 cursor-pointer")}>
+              <Image
+                src={img.src}
+                alt={img.alt}
+                fill
+                priority={idx === 0 || idx === 2 || idx === 4}
+                sizes="(max-width: 768px) 213px, 33vw"
+                className="rounded-lg object-cover"
+              />
+            </div>
+          );
+
+          return img.href ? (
+            <a
+              key={img.src}
+              href={img.href}
+              target="_blank"
+              rel="noreferrer"
+              aria-label={img.alt}
+            >
+              {imageContainer}
+            </a>
+          ) : (
+            <div key={img.src}>
+              {imageContainer}
+            </div>
+          );
+        })}
       </div>
 
       <p className="my-5 leading-6 text-muted-foreground">Experience with:</p>

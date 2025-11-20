@@ -3,7 +3,6 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "@/styles/globals.css";
 
 import { StarBackground } from "@/components/star-background";
-import { Navbar } from "@/components/navbar";
 import Footer from "@/components/footer";
 
 const geistSans = Geist({
@@ -20,12 +19,19 @@ export const metadata: Metadata = {
   title: "Max Murray",
   description: "Max Murray's personal website",
   icons: {
-    icon: "/favicon.ico",
+    icon: [
+      {
+        url: "https://github.com/maxmurr.png",
+        sizes: "any",
+      },
+    ],
   },
   openGraph: {
     title: "Max Murray",
     description: "Max Murray's personal website",
     url: "https://maxmurr.com",
+    type: "website",
+    images: ["https://github.com/maxmurr.png"],
   },
   twitter: {
     card: "summary_large_image",
@@ -49,7 +55,6 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <StarBackground />
-        <Navbar />
         {children}
         <Footer />
       </body>
