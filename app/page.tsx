@@ -24,6 +24,7 @@ const ImageList = [
   {
     src: "/images/mookrata.png",
     alt: "Mookrata",
+    href: "https://github.com/maxmurr/mookrata",
   },
   {
     src: "/images/election.png",
@@ -33,6 +34,7 @@ const ImageList = [
   {
     src: "/images/hotelpms.png",
     alt: "Hotel Management System",
+    href: "https://github.com/maxmurr/mx-hotel",
   },
   {
     src: "/images/election68.png",
@@ -115,7 +117,13 @@ export default async function Home() {
           });
 
           const imageContainer = (
-            <div className={cn(baseClasses, img.href && "transition-transform duration-200 hover:scale-105 cursor-pointer")}>
+            <div
+              className={cn(
+                baseClasses,
+                img.href &&
+                  "transition-transform duration-200 hover:scale-105 cursor-pointer"
+              )}
+            >
               <Image
                 src={img.src}
                 alt={img.alt}
@@ -138,9 +146,7 @@ export default async function Home() {
               {imageContainer}
             </a>
           ) : (
-            <div key={img.src}>
-              {imageContainer}
-            </div>
+            <div key={img.src}>{imageContainer}</div>
           );
         })}
       </div>
